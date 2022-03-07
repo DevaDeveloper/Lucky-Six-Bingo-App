@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from "react";
+import "./App.css";
+import Settings from "./components/Settings/Settings";
+import Withdrawl from "./components/Withdrawl/Withdrawl";
+import { bingoActions } from "./store/bingo-slice";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(bingoActions.addAllNumbersToFullSet());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className="App">
+        <div className="holder">
+          {" "}
+          <Withdrawl />
+          <Settings />
+        </div>
+      </div>
+    </Fragment>
   );
 }
 
