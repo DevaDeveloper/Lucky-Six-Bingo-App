@@ -9,10 +9,6 @@ export const getRandNumber = createAsyncThunk("asyncNum", async () => {
 
 export const allTics = [];
 
-export const consoleTesting = () => {
-  return 5;
-};
-
 export const generateRandom = () => Math.floor(Math.random() * 48) + 1;
 
 export const initializeTicketsSixNumbers = () => {
@@ -23,10 +19,9 @@ export const initializeTicketsSixNumbers = () => {
     random = generateRandom();
     if (!ticketNums.has(random)) {
       ticketNums.add(random);
-    } else {
-      random = generateRandom();
     }
+    random = generateRandom();
   }
-
+  console.log(ticketNums);
   return ticketNums;
 };

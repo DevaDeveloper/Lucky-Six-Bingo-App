@@ -1,0 +1,9 @@
+.holder {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgba(34, 139, 34, 0.892);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url(../../loptice1.jpeg);
+  background-size: cover;
+  background-position: center;
+}

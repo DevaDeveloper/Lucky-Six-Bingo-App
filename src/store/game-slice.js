@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isPlaying: false,
-  allSetNumbrs: new Set(),
+  firstFiveNumbersArr: [],
+  firstFiveNumbersSum: 0,
+  winningTickets: [],
 };
 
 export const gameSlice = createSlice({
@@ -15,11 +17,8 @@ export const gameSlice = createSlice({
     stopGame(state, action) {
       state.isPlaying = false;
     },
-    addAllNumbersToFullSet(state, action) {
-      for (let i = 1; i <= 48; i++) {
-        state.allNumbersSet.add(i);
-      }
-      console.log(state.allNumbersSet);
+    firstFiveNumsSum(state, action) {
+      state.firstFiveNumbersSum = action.payload;
     },
   },
 });

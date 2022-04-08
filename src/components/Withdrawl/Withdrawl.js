@@ -3,31 +3,30 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Withdrawl.module.css";
 import { bingoActions } from "../../store/bingo-slice";
 import { config } from "../Settings/Config";
+import { v4 as uuid } from "uuid";
+import OneBall from "./OneBall";
 
 const Withdrawl = () => {
   const dispatch = useDispatch();
-
   const withdrawl = useSelector((state) => state.bingo.withdrawnNumbers);
-  const winningTickets = useSelector((state) => state.bingo.winningTickets);
   const ballTurn = useSelector((state) => state.bingo.ballTurn);
-  let firstFiveNumbersSum = useSelector(
-    (state) => state.bingo.firstFiveNumbersSum
-  );
 
   const oddsArr = Object.values(config.odds);
 
   useEffect(() => {
-    const timer = setTimeout(
-      () => dispatch(bingoActions.startNumberWithdrawl()),
-      100
-    );
+    const timer = setTimeout(() => {
+      if (ballTurn <= 35) {
+        dispatch(bingoActions.startNumberWithdrawl());
+        dispatch(bingoActions.checkForNumber());
+        dispatch(bingoActions.checkForWinningTickets());
+      }
+    }, 1000);
     return () => clearTimeout(timer);
-  });
+  }, [ballTurn, dispatch, withdrawl]);
 
-  console.log(withdrawl);
-  if (winningTickets.length !== 0 && ballTurn >= 35) {
-    console.log(winningTickets);
-  }
+  let firstFive = withdrawl.slice(0, 6).reduce((acc, x) => {
+    return acc + x;
+  }, 0);
 
   return (
     <div className={styles.withdrawingBalls}>
@@ -51,21 +50,13 @@ const Withdrawl = () => {
         </ul>
         <ul className={styles.balls}>
           {withdrawl.map((num) => (
-            <li
-              key={num}
-              style={{
-                backgroundColor: config.colors[num],
-                color: config.textColor[num],
-              }}
-            >
-              {num}
-            </li>
+            <OneBall config={config} num={num} key={uuid()} />
           ))}
         </ul>
       </div>
 
       <div className={styles.firstFiveSum}>
-        Zbir prvih 5 brojeva (122,5 +/-): {firstFiveNumbersSum}
+        Zbir prvih 5 brojeva (122,5 +/-): {withdrawl.length > 6 ? firstFive : 0}
       </div>
       <div>Prvi broj (24,5 +/-) {withdrawl[0]}</div>
     </div>

@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
-import Settings from "./components/Settings/Settings";
-import Withdrawl from "./components/Withdrawl/Withdrawl";
 import { bingoActions } from "./store/bingo-slice";
 import { useDispatch } from "react-redux";
+import Game from "./components/Game.js/Game";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,8 +15,7 @@ function App() {
       <div className="App">
         <div className="holder">
           {" "}
-          <Withdrawl />
-          <Settings />
+          <Game />
         </div>
       </div>
     </Fragment>

@@ -45,6 +45,7 @@
   margin: 10px 20px;
   transition: all 0.3s ease-in;
   text-transform: uppercase;
+  visibility: hidden;
 }
 .withdrawlBtn button:hover {
   background-color: rgb(35, 35, 172);
